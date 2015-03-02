@@ -1,0 +1,3 @@
+[
+        {"id": "region", "label": "Region", "type": "enum", "values": ["ALL", "France/fr", "Spain/es"], "default": "ALL" }
+]
