@@ -44,6 +44,8 @@ def Start():
   DirectoryObject.thumb = R(ICON)
   DirectoryObject.art = R(ART)
 
+  Locale.DefaultLocale = Prefs["language"].split("/")[1]
+
   HTTP.CacheTime = CACHE_1HOUR
 
 ################################################################################

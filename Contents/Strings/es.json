@@ -1,40 +1,40 @@
 {
-  "Just Added": "Últimos Cortos",
-  "just added shorts": "últimos cortometrajes añadidos",
+    "Just Added": "Últimos Cortos",
+    "just added shorts": "últimos cortometrajes añadidos",
 
-  "All": "Todos los Cortos",
-  "shorts full list": "listado completo de cortometrajes",  
+    "All": "Todos los Cortos",
+    "shorts full list": "listado completo de cortometrajes",
 
-  "Categories": "Categorías",
-  "choose the category you want to view": "elija la categoría que desee inspeccionar",
-  "Category": "Categoría",
+    "Categories": "Categorías",
+    "choose the category you want to view": "elija la categoría que desee inspeccionar",
+    "Category": "Categoría",
 
-  "Tags": "Etiquetas",
-  "choose a tag from our tags of cloud": "elija una entre la nube de etiquetas",
-  "Tag": "Etiqueta",
+    "Tags": "Etiquetas",
+    "choose a tag from our tags of cloud": "elija una entre la nube de etiquetas",
+    "Tag": "Etiqueta",
 
-  "Favorites": "Favoritos",
-  "play one of your favorite shorts": "reproduce uno de tus cortometrajes favoritos",
+    "Favorites": "Favoritos",
+    "play one of your favorite shorts": "reproduce uno de tus cortometrajes favoritos",
 
-  "Preferences": "Preferencias",
+    "Preferences": "Preferencias",
 
-  "Search Shorts": "Buscar Cortometraje",
-  "Search for Shorts": "Buscar Cortometraje",
-  "Search Results": "Resultados Búsqueda",
+    "Search Shorts": "Buscar Cortometraje",
+    "Search for Shorts": "Buscar Cortometraje",
+    "Search Results": "Resultados Búsqueda",
 
-  "Page": "Página",
-  "Next Page": "Siguientes",
+    "Page": "Página",
+    "Next Page": "Siguientes",
 
-  "Short not found": "Cortometraje no encontrado",
+    "Short not found": "Cortometraje no encontrado",
 
-  "Add to Favorites": "Añadir a Favoritos",
-  "Remove from Favorites": "Eliminar de Favoritos",
-  "Added to Favorites": "Añadido a Favoritos",
-  "The Short had been added to your Favorites": "El Cortometraje ha sido añadido a sus Favoritos",
-  "Error when trying to add short to Favorites": "Error al intentar añadir cortometraje a Favoritos",
-  "Removed from Favorites": "Eliminado de Favoritos",
-  "The Short had been removed from your Favorites": "El Cortometraje ha sido eliminado de sus Favoritos",
-  "Error when trying to remove short from Favorites": "Error al intentar eliminar cortometraje de Favoritos",
-  "No Favorites": "No existen Favoritos",
-  "You have to add at least a short to your Favorites": "Tiene que añadir al menos un cortometraje a sus Favoritos"
+    "Add to Favorites": "Añadir a Favoritos",
+    "Remove from Favorites": "Eliminar de Favoritos",
+    "Added to Favorites": "Añadido a Favoritos",
+    "The Short had been added to your Favorites": "El Cortometraje ha sido añadido a sus Favoritos",
+    "Error when trying to add short to Favorites": "Error al intentar añadir cortometraje a Favoritos",
+    "Removed from Favorites": "Eliminado de Favoritos",
+    "The Short had been removed from your Favorites": "El Cortometraje ha sido eliminado de sus Favoritos",
+    "Error when trying to remove short from Favorites": "Error al intentar eliminar cortometraje de Favoritos",
+    "No Favorites": "No existen Favoritos",
+    "You have to add at least a short to your Favorites": "Tiene que añadir al menos un cortometraje a sus Favoritos"
 }
