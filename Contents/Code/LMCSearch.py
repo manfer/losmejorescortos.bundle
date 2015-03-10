@@ -14,7 +14,7 @@ def lmc_search(query, page = 1):
     no_cache = True
   )
 
-  url = LMC_SEARCH.format(String.Quote(query)) if (page == 1) else LMC_SEARCH_PAGE.format(str(page), String.Quote(query)) 
+  url = LMC_SEARCH.format(query) if (page == 1) else LMC_SEARCH_PAGE.format(str(page), query) 
   content = HTML.ElementFromURL(url, headers = HTTP_HEADERS)
   shorts  = content.xpath('//div[@class="nag cf"]/div')
 
