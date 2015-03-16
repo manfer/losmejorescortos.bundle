@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
-@route(PREFIX+'/search/{query}')
+@route(PREFIX+'/search', page = int)
 def lmc_search(query, page = 1):
-
-  page = int(page) 
 
   oc = ObjectContainer(
     title2 = unicode(L('Search Results') + ': ' + query  + ' | ' + L('Page') + ' ' + str(page))
