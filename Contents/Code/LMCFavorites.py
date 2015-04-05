@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+from LMCUtil import L
+
 @route(PREFIX+'/add')
 def AddtoFavorites(short, title, thumb):
   metadata = {

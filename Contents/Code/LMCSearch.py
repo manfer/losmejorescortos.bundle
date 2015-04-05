@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+from LMCUtil import L
+
 @route(PREFIX+'/search', page = int)
 def lmc_search(query, page = 1):
 
