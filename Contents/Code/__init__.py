@@ -119,7 +119,8 @@ def lmc_get_just_added():
       key     = Callback(lmc_get_short, short = short_url, thumb = short_thumb),
       title   = short_title,
       summary = short_summary,
-      thumb   = Resource.ContentsOfURLWithFallback(short_thumb)
+      thumb   = Resource.ContentsOfURLWithFallback(url = short_thumb),
+      art     = Resource.ContentsOfURLWithFallback(url = short_thumb)
     ))
 
   return oc
@@ -148,7 +149,8 @@ def lmc_get_all(page = 1):
       key     = Callback(lmc_get_short, short = short_url, thumb = short_thumb),
       title   = short_title,
       summary = short_summary,
-      thumb   = Resource.ContentsOfURLWithFallback(short_thumb)
+      thumb   = Resource.ContentsOfURLWithFallback(url = short_thumb),
+      art     = Resource.ContentsOfURLWithFallback(url = short_thumb)
     ))
 
   paginador = content.xpath('//div[@class="wp-pagenavi"]/span[@class="current"]/following-sibling::a')
@@ -206,7 +208,8 @@ def lmc_get_category(title, category, page = 1):
       key     = Callback(lmc_get_short, short = short_url, thumb = short_thumb),
       title   = short_title,
       summary = short_summary,
-      thumb   = Resource.ContentsOfURLWithFallback(short_thumb)
+      thumb   = Resource.ContentsOfURLWithFallback(url = short_thumb),
+      art     = Resource.ContentsOfURLWithFallback(url = short_thumb)
     ))
 
   paginador = content.xpath('//div[@class="wp-pagenavi"]/span[@class="current"]/following-sibling::a')
@@ -265,7 +268,8 @@ def lmc_get_tag(title, tag, page = 1):
       key     = Callback(lmc_get_short, short = short_url, thumb = short_thumb),
       title   = short_title,
       summary = short_summary,
-      thumb   = Resource.ContentsOfURLWithFallback(short_thumb)
+      thumb   = Resource.ContentsOfURLWithFallback(url = short_thumb),
+      art     = Resource.ContentsOfURLWithFallback(url = short_thumb)
     ))
 
   paginador = content.xpath('//div[@class="wp-pagenavi"]/span[@class="current"]/following-sibling::a')
