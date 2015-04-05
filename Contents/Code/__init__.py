@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 import urllib2
-import re
 import hashlib
 
 TITLE  = u'Los Mejores Cortos'
@@ -14,6 +13,10 @@ LMC_CATEGORY = LMC_BASE_URL + "/category/cortos/{0}/"
 LMC_SHORT = LMC_BASE_URL + "/{0}"
 LMC_SEARCH = LMC_BASE_URL + "/?s={0}"
 LMC_SEARCH_PAGE = LMC_BASE_URL + "/page/{0}/?s={1}"
+
+LMC_URL_PATTERN = Regex('.*?losmejorescortos.com/(.*)/')
+LMC_CATEGORY_PATTERN = Regex('.*?losmejorescortos.com/category/cortos/(.*)/')
+LMC_TAG_PATTERN = Regex('.*?losmejorescortos.com/tag/(.*)/')
 
 LMC_ICON      = 'losmejorescortos.png'
 ICON          = 'default-icon.png'
@@ -113,7 +116,7 @@ def lmc_get_just_added():
     short_url     = short.xpath('.//h2[@class="title"]/a/@href')[0]
     short_thumb   = short.xpath('.//div[@class="thumb"]//img/@src')[0]
     short_summary = short.xpath('.//p[@class="desc"]/text()')[0]
-    short_url     = re.search('.*?losmejorescortos.com/(.*)/', short_url).group(1)
+    short_url     = LMC_URL_PATTERN.search(short_url).group(1)
 
     oc.add(DirectoryObject(
       key     = Callback(lmc_get_short, short = short_url, thumb = short_thumb),
@@ -142,7 +145,7 @@ def lmc_get_all(page = 1):
     short_url     = short.xpath('.//h2[@class="title"]/a/@href')[0]
     short_thumb   = short.xpath('.//div[@class="thumb"]//img/@src')[0]
     short_summary = short.xpath('.//p[@class="desc"]/text()')[0]
-    short_url     = re.search('.*?losmejorescortos.com/(.*)/', short_url).group(1)
+    short_url     = LMC_URL_PATTERN.search(short_url).group(1)
 
     oc.add(DirectoryObject(
       key     = Callback(lmc_get_short, short = short_url, thumb = short_thumb),
@@ -173,7 +176,7 @@ def lmc_get_categories():
   for category in HTML.ElementFromURL(LMC_BASE_URL, headers=HTTP_HEADERS).xpath('//li[@id="menu-item-52"]/ul/li/a'):
     url      = category.get('href')
     title    = category.text
-    catname  = 'trailers' if ('trailers' in url) else re.search('.*?losmejorescortos.com/category/cortos/(.*)/', url).group(1)
+    catname  = 'trailers' if ('trailers' in url) else LMC_CATEGORY_PATTERN.search(url).group(1)
 
     oc.add(DirectoryObject(
       key     = Callback(lmc_get_category, title = title, category = catname, page = 1),
@@ -200,7 +203,7 @@ def lmc_get_category(title, category, page = 1):
     short_url     = short.xpath('.//h2[@class="title"]/a/@href')[0]
     short_thumb   = short.xpath('.//div[@class="thumb"]//img/@src')[0]
     short_summary = short.xpath('.//p[@class="desc"]/text()')[0]
-    short_url     = re.search('.*?losmejorescortos.com/(.*)/', short_url).group(1)
+    short_url     = LMC_URL_PATTERN.search(short_url).group(1)
 
     oc.add(DirectoryObject(
       key     = Callback(lmc_get_short, short = short_url, thumb = short_thumb),
@@ -232,7 +235,7 @@ def lmc_get_tags():
     url     = tag.get('href')
     title   = tag.text
     Log.Info(title)
-    tagname = re.search('.*?losmejorescortos.com/tag/(.*)/', url).group(1)
+    tagname = LMC_TAG_PATTERN.search(url).group(1)
 
     oc.add(DirectoryObject(
       key     = Callback(lmc_get_tag, title = title, tag = tagname, page = 1),
@@ -259,7 +262,7 @@ def lmc_get_tag(title, tag, page = 1):
     short_url     = short.xpath('.//h2[@class="title"]/a/@href')[0]
     short_thumb   = short.xpath('.//div[@class="thumb"]//img/@src')[0]
     short_summary = short.xpath('.//p[@class="desc"]/text()')[0]
-    short_url     = re.search('.*?losmejorescortos.com/(.*)/', short_url).group(1)
+    short_url     = LMC_URL_PATTERN.search(short_url).group(1)
 
     oc.add(DirectoryObject(
       key     = Callback(lmc_get_short, short = short_url, thumb = short_thumb),

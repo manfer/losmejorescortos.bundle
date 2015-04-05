@@ -22,7 +22,7 @@ def lmc_search(query, page = 1):
       short_url     = short.xpath('.//h2[@class="title"]/a/@href')[0]
       short_thumb   = short.xpath('.//div[@class="thumb"]//img/@src')[0]
       short_summary = short.xpath('.//p[@class="desc"]/text()')[0]
-      short_url     = re.search('.*?losmejorescortos.com/(.*)/', short_url).group(1)
+      short_url     = LMC_URL_PATTERN.search(short_url).group(1)
 
       oc.add(DirectoryObject(
         key     = Callback(lmc_get_short, short = short_url, thumb = short_thumb),
