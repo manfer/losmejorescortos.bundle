@@ -56,7 +56,11 @@ def lmc_favorites():
         for short in values:
           Log.Info(short)
           oc.add(DirectoryObject(
-            key   = Callback(lmc_get_short, short = short["short"], thumb = short["thumb"]),
+            key = Callback(
+              lmc_get_short,
+              short = short["short"],
+              thumb = short["thumb"]
+            ),
             title = short["title"],
             thumb = Resource.ContentsOfURLWithFallback(url = short["thumb"]),
             art   = Resource.ContentsOfURLWithFallback(url = short["thumb"])

@@ -25,7 +25,11 @@ def lmc_search(query, page = 1):
       short_url     = LMC_URL_PATTERN.search(short_url).group(1)
 
       oc.add(DirectoryObject(
-        key     = Callback(lmc_get_short, short = short_url, thumb = short_thumb),
+        key = Callback(
+          lmc_get_short,
+          short = short_url,
+          thumb = short_thumb
+        ),
         title   = short_title,
         summary = short_summary,
         thumb   = Resource.ContentsOfURLWithFallback(url = short_thumb),
@@ -36,7 +40,11 @@ def lmc_search(query, page = 1):
 
     if len(paginador) > 0:
       oc.add(NextPageObject(
-        key = Callback(lmc_search, query = query, page = page + 1),
+        key = Callback(
+          lmc_search,
+          query = query,
+          page = page + 1
+        ),
         title = L('Next Page') + ' >>',
         thumb = R(NEXT_ICON)
       ))
