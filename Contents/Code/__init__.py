@@ -1,7 +1,4 @@
 # -*- coding: utf-8 -*-
-import urllib2
-import hashlib
-
 TITLE  = u'Los Mejores Cortos'
 PREFIX = '/video/losmejorescortos'
 
