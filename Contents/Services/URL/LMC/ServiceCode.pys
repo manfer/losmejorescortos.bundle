@@ -1,0 +1,142 @@
+# -*- coding: utf-8 -*-
+HTTP_HEADERS = {
+  'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:29.0) Gecko/20100101 Firefox/29.0',
+  'Accept-Encoding': 'gzip, deflate',
+  'Accept-Language': 'es-ES,es;q=0.8,en-US;q=0.5,en;q=0.3',
+  'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+  'Connection': 'keep-alive',
+  'Origin': 'http://www.losmejorescortos.com',
+  'Referer': 'http://www.losmejorescortos.com'
+}
+
+RE_VIMEO_ID = Regex('(\d{6,})')
+VIMEO_JSON = 'http://vimeo.com/api/v2/video/{0}.json'
+RE_YOUTUBE_ID = Regex('/(v|e(mbed)?)/(v/)?(?P<id>.{11})')
+YOUTUBE_THUMB = 'https://img.youtube.com/vi/{0}/0.jpg'
+
+####################################################################################################
+def NormalizeURL(url):
+  return url
+
+####################################################################################################
+def MetadataObjectForURL(url):
+
+  try:
+    content = HTML.ElementFromURL(
+      url,
+      headers = HTTP_HEADERS,
+      cacheTime = CACHE_1DAY
+    )
+  except:
+    raise Ex.MediaNotAvailable
+
+  title = content.xpath('//h1[@id="title"]/text()')[0]
+  video = content.xpath('//div[@id="video"]//iframe/@src')[0]
+
+  if 'vimeo' in video:
+    vimeo_id = RE_VIMEO_ID.search(video).group(1)
+    json = JSON.ObjectFromURL(
+      VIMEO_JSON.format(vimeo_id),
+      headers = HTTP_HEADERS,
+      cacheTime = CACHE_1DAY
+    )
+    thumb = json[0]['thumbnail_large']
+  else:
+    id = RE_YOUTUBE_ID.search(video).group('id')
+    thumb = YOUTUBE_THUMB.format(id)
+
+  clip = VideoClipObject(
+    title = title,
+    thumb = Resource.ContentsOfURLWithFallback(url = thumb),
+    art = Resource.ContentsOfURLWithFallback(url = thumb)
+  )
+
+  try:
+    clip.original_title = content.xpath(u'//table[@class="ficha"]//td[contains(text(),"Título original:")]/following-sibling::td/text()')[0]
+  except:
+    pass
+
+  try:
+    clip.year = int(content.xpath(u'//table[@class="ficha"]//td[contains(text(),"Año:")]/following-sibling::td/text()')[0])
+  except:
+    pass
+
+  try:
+    durationString = content.xpath(u'//table[@class="ficha"]//td[contains(text(),"Duración:")]/following-sibling::td/text()')[0]
+    if 'min.' in durationString:
+      duration = int(Regex('(\d+)').search(durationString).group(1)) * 60 * 1000
+    elif ':' in durationString:
+      duration = Datetime.MillisecondsFromString(durationString)
+    clip.duration = duration
+  except:
+    pass
+
+  try:
+    countries = content.xpath(u'//table[@class="ficha"]//td[contains(text(),"País:")]/following-sibling::td/text()')[0]
+    clip.countries = [x.strip() for x in countries.split(',')]
+  except:
+    pass
+
+  try:
+    directors = content.xpath(u'//table[@class="ficha"]//td[contains(text(),"Dirección:")]/following-sibling::td/text()')[0]
+    clip.directors = [x.strip() for x in directors.split(',')]
+  except:
+    pass
+
+  try:
+    writers = content.xpath(u'//table[@class="ficha"]//td[contains(text(),"Guión:")]/following-sibling::td/text()')[0]
+    clip.writers = [x.strip() for x in writers.split(',')]
+  except:
+    pass
+
+  try:
+    cast = content.xpath(u'//table[@class="ficha"]//td[contains(text(),"Reparto:")]/following-sibling::td/text()')[0]
+    cast = [x.strip() for x in cast.split(',')]
+    clip.roles = [{'role': x} for x in cast]
+  except:
+    pass
+
+  try:
+    producers = content.xpath(u'//table[@class="ficha"]//td[contains(text(),"Productora:")]/following-sibling::td/text()')[0]
+    clip.producers = [x.strip() for x in producers.split(',')]
+  except:
+    pass
+
+  try:
+    clip.genres = content.xpath(u'//div[@id="extras"]/h4[contains(text(),"Etiquetas:")]/preceding-sibling::a/text()')
+  except:
+    pass
+
+  try:
+    clip.tags = content.xpath(u'//div[@id="extras"]/h4[contains(text(),"Etiquetas:")]/following-sibling::a/text()')
+  except:
+    pass
+
+  try:
+    summary_lines = content.xpath(u'//div[contains(@class,"entry-content")]//text()')
+    summary_lines = [x.strip() for x in summary_lines]
+    if len(summary_lines) > 1:
+      clip.summary = '\n'.join(summary_lines)
+    else:
+      clip.summary = summary_lines[0]
+  except:
+    pass
+
+  return clip
+
+####################################################################################################
+@deferred
+def MediaObjectsForURL(url):
+
+  try:
+    content = HTML.ElementFromURL(
+      url,
+      headers = HTTP_HEADERS,
+      cacheTime = CACHE_1DAY
+    )
+  except:
+    raise Ex.MediaNotAvailable
+
+  video = content.xpath('//div[@id="video"]//iframe/@src')[0]
+
+  return URLService.MediaObjectsForURL(video)

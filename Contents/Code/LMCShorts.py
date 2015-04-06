@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from LMCUtil import L
+from LMCFavorites import AddtoFavorites, RemovefromFavorites
 
 ################################################################################
 @route(PREFIX+'/justadded')
@@ -20,7 +21,8 @@ def lmc_get_just_added():
       key = Callback(
         lmc_get_short,
         short = short_url,
-        thumb = short_thumb
+        thumb = short_thumb,
+        title = short_title
       ),
       title   = short_title,
       summary = short_summary,
@@ -54,7 +56,8 @@ def lmc_get_all(page = 1):
       key = Callback(
         lmc_get_short,
         short = short_url,
-        thumb = short_thumb
+        thumb = short_thumb,
+        title = short_title
       ),
       title   = short_title,
       summary = short_summary,
@@ -122,7 +125,8 @@ def lmc_get_category(title, category, page = 1):
       key = Callback(
         lmc_get_short,
         short = short_url,
-        thumb = short_thumb
+        thumb = short_thumb,
+        title = short_title
       ),
       title   = short_title,
       summary = short_summary,
@@ -196,7 +200,8 @@ def lmc_get_tag(title, tag, page = 1):
       key = Callback(
         lmc_get_short,
         short = short_url,
-        thumb = short_thumb
+        thumb = short_thumb,
+        title = short_title
       ),
       title   = short_title,
       summary = short_summary,
@@ -222,20 +227,20 @@ def lmc_get_tag(title, tag, page = 1):
 
 ################################################################################
 @route(PREFIX+'/short/{short}')
-def lmc_get_short(short, thumb):
+def lmc_get_short(short, thumb, title):
 
   url = LMC_SHORT.format(short)
 
-  content = HTML.ElementFromURL(url, headers=HTTP_HEADERS)
-
-  title   = content.xpath('//h1[@id="title"]/text()')[0]
-  video   = content.xpath('//div[@id="video"]//iframe/@src')[0]
-
   oc = ObjectContainer(
-    title2 = title
+    title2 = unicode(title)
   )
 
-  oc.add(URLService.MetadataObjectForURL(video))
+  oc.add(VideoClipObject(
+    url = url,
+    title = title,
+    thumb = Resource.ContentsOfURLWithFallback(url = thumb),
+    art = Resource.ContentsOfURLWithFallback(url = thumb)
+  ))
 
   if Data.Exists('LMCFavorites'):
     favorites = Data.LoadObject('LMCFavorites')

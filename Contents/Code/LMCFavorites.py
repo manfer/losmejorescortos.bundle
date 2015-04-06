@@ -32,7 +32,7 @@ def RemovefromFavorites(short):
       Data.SaveObject('LMCFavorites', favs)
       return ObjectContainer(
         header   = L('Removed from Favorites'),
-        message  = L('The Short had been removed from your Favorites'),
+        message  = L('The short had been removed from your Favorites'),
         no_cache = True
       )
   except:
@@ -40,6 +40,7 @@ def RemovefromFavorites(short):
 
 @route(PREFIX+'/favorites')
 def lmc_favorites():
+  from LMCShorts import lmc_get_short
   nofav = ObjectContainer(
     header   = L('No Favorites'),
     message  = L('You have to add at least a short to your Favorites'),
@@ -61,7 +62,8 @@ def lmc_favorites():
             key = Callback(
               lmc_get_short,
               short = short["short"],
-              thumb = short["thumb"]
+              thumb = short["thumb"],
+              title = short["title"]
             ),
             title = short["title"],
             thumb = Resource.ContentsOfURLWithFallback(url = short["thumb"]),

@@ -7,7 +7,7 @@ LMC_ALL = LMC_BASE_URL + "/todos"
 LMC_TAGS = LMC_BASE_URL + "/nube-de-etiquetas"
 LMC_TAG = LMC_BASE_URL + "/tag/{0}/"
 LMC_CATEGORY = LMC_BASE_URL + "/category/cortos/{0}/"
-LMC_SHORT = LMC_BASE_URL + "/{0}"
+LMC_SHORT = LMC_BASE_URL + "/{0}/"
 LMC_SEARCH = LMC_BASE_URL + "/?s={0}"
 LMC_SEARCH_PAGE = LMC_BASE_URL + "/page/{0}/?s={1}"
 
@@ -32,9 +32,9 @@ HTTP_HEADERS = {
 }
 
 from LMCUtil import L
-from LMCShorts import *
 from LMCFavorites import *
 from LMCSearch import *
+from LMCShorts import *
 
 ################################################################################
 def Start():

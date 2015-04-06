@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from LMCUtil import L
+from LMCShorts import lmc_get_short
 
 @route(PREFIX+'/search', page = int)
 def lmc_search(query, page = 1):
@@ -30,7 +31,8 @@ def lmc_search(query, page = 1):
         key = Callback(
           lmc_get_short,
           short = short_url,
-          thumb = short_thumb
+          thumb = short_thumb,
+          title = short_title
         ),
         title   = short_title,
         summary = short_summary,
